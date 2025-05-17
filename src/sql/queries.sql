@@ -35,19 +35,34 @@ SUM(o.count) AS total_views
 FROM observations o
 JOIN species s ON o.species_id = s.id
 GROUP BY s.common_name
-HAVING SUM(o.count) BETWEEN 1 AND 5
+HAVING total_views BETWEEN 1 AND 5
 ORDER BY total_views ASC;
 
--- MISSION 4 Misión 4: ¿Qué región tiene el mayor número de especies distintas observadas?;
+-- MISSION 4 Which region has the highest number of distinct species observed?;
+SELECT
+r.name AS region_name,
+COUNT(DISTINCT o.species_id) AS num_species
+FROM observations o
+JOIN regions r ON o.region_id = r.id
+GROUP BY r.name
+ORDER BY num_species DESC
+LIMIT 1;
+
+
+-- MISSION 5 Which species have been observed most frequently?;
+SELECT 
+s.common_name AS specie_name,
+SUM(o.count) AS total_views
+FROM observations o
+JOIN species s ON o.species_id = s.id
+GROUP BY s.common_name
+ORDER BY total_views DESC
+LIMIT 10;
 
 
 
--- MISSION 5
--- Your query here:
+-- MISSION 6 We want to identify the most active observers. Who are the people with the most observation records?
 
-
--- MISSION 6
--- Your query here:
 
 
 -- MISSION 7
